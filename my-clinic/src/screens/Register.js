@@ -12,21 +12,19 @@ const Register = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [loading, setLoading] = useState("");
-  const [isDoctor, setIsDoctor] = useState(false);
-  const [isUser, setIsUser] = useState(false);
+  const [role, setRole] = useState("");
 
   const navigation = useNavigation();
 
   const signUp = async () => {
     setLoading(true);
     try {
-      if (isDoctor) {
-        await signUp(email, password);
+      await signUp(email, password);
+      if (role === "doctor") {
         handleAddDoctor();
         setLoading(false);
         navigation.navigate("Home");
-      } else if (isUser) {
-        await signUp(email, password);
+      } else if (role === "client") {
         handleAddUser();
         setLoading(false);
         navigation.navigate("Home");
