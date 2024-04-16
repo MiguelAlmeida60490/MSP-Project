@@ -3,7 +3,6 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import "@react-native-firebase/app";
 
 export const signUp = async (email, password) => {
   try {

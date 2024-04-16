@@ -1,6 +1,6 @@
 import { View, Text, Pressable, ActivityIndicator } from "react-native";
 import React, { useState } from "react";
-import { signIn, signUp } from "../services/auth";
+import { signUp } from "../services/auth";
 import { useNavigation } from "@react-navigation/native";
 import { styles } from "../styles/styles";
 import { TextInput } from "react-native-gesture-handler";
@@ -9,29 +9,20 @@ import { app } from "../services/firebaseConfig";
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [name, setName] = useState("");
   const [loading, setLoading] = useState("");
-  const [role, setRole] = useState("");
 
   const navigation = useNavigation();
 
-  const signUp = async () => {
+  const doSignUp = async () => {
     setLoading(true);
     try {
-      await signUp(email, password);
-      if (role === "doctor") {
-        handleAddDoctor();
-        setLoading(false);
-        navigation.navigate("Home");
-      } else if (role === "client") {
-        handleAddUser();
-        setLoading(false);
-        navigation.navigate("Home");
-      } else {
-        alert("No user type selected");
-        setLoading(false);
+      const user = await signUp(email, password);
+      if (user) {
+        handleAddUser("client");
       }
+      setLoading(false);
+      navigation.navigate("Home");
     } catch (error) {
       setLoading(false);
       if (error.code === "auth/email-already-in-use") {
@@ -44,9 +35,45 @@ const Register = () => {
     }
   };
 
+  const handleAddUser = (role) => {
+    app.firestore().collection("users").doc(email).set({
+      name,
+      email,
+      role,
+    });
+  };
+
   return (
-    <View>
-      <Text>Register</Text>
+    <View style={styles.container}>
+      <Text style={styles.mainText}>Register</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Email"
+        value={email}
+        onChangeText={(email) => setEmail(email)}
+      ></TextInput>
+      <TextInput
+        style={styles.input}
+        placeholder="Name"
+        value={name}
+        onChangeText={(name) => setName(name)}
+      ></TextInput>
+      <TextInput
+        style={styles.input}
+        placeholder="Password"
+        value={password}
+        onChangeText={(password) => setPassword(password)}
+        secureTextEntry={true}
+      ></TextInput>
+      {loading ? (
+        <ActivityIndicator color="#0000ff" size="large" />
+      ) : (
+        <View>
+          <Pressable style={styles.pressable} onPress={doSignUp}>
+            <Text style={styles.mainText}>Sign Up</Text>
+          </Pressable>
+        </View>
+      )}
     </View>
   );
 };

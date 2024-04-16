@@ -12,7 +12,7 @@ const FirstPage = () => {
       <View style={styles.buttonView}>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate("Login")}
+          onPress={() => navigation.navigate("LogIn")}
         >
           <Text style={styles.buttonText}>Log In</Text>
         </TouchableOpacity>
