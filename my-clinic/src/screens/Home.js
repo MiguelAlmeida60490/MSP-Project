@@ -8,27 +8,45 @@ const Home = () => {
   const navigation = useNavigation();
   const { currentUser, userData } = useAuth();
 
+  const HomeContent = () => {
+    if (userData.role === "client") {
+      return (
+        <View style={styles.container}>
+          <Text>
+            User Signed in: {userData.email}, {userData.role}
+          </Text>
+        </View>
+      );
+    }
+    if (userData.role === "doctor") {
+      return (
+        <View>
+          <Text>
+            User Signed in: {userData.email}, {userData.role}
+          </Text>
+        </View>
+      );
+    }
+    if (userData.role === "admin") {
+      return (
+        <View>
+          <Text>
+            User Signed in: {userData.email}, {userData.role}
+          </Text>
+        </View>
+      );
+    }
+  };
+
   return (
     <View style={styles.container}>
       {userData ? (
-        <Text>{userData.email}</Text>
+        <HomeContent />
       ) : (
         <ActivityIndicator color="#0000ff" size="large" />
       )}
     </View>
   );
-};
-
-const HomeContent = () => {
-  if (userData.role === "client") {
-    return <View></View>;
-  }
-  if (userData.role === "doctor") {
-    return <View></View>;
-  }
-  if (userData.role === "admin") {
-    return <View></View>;
-  }
 };
 
 export default Home;
