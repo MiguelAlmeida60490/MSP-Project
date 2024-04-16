@@ -75,7 +75,11 @@ const TabNavigator = () => {
         component={MedicalAppointment}
         name="MedicalAppointment"
         options={{
-          headerShown: false,
+          headerTitle: () => <Header name="MyClinic" />,
+          headerStyle: {
+            backgroundColor: "#4c00b0",
+            height: 120,
+          },
           tabBarButton: () => null,
         }}
       />
