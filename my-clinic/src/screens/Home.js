@@ -1,4 +1,4 @@
-import { View, Text, Button, ActivityIndicator } from "react-native";
+import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../contexts/authContext";
@@ -15,6 +15,12 @@ const Home = () => {
           <Text>
             User Signed in: {userData.email}, {userData.role}
           </Text>
+          <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate("MedicalAppointment")}
+        >
+          <Text style={styles.buttonText}>Schedule Medical appointment</Text>
+        </TouchableOpacity>
         </View>
       );
     }

@@ -8,6 +8,7 @@ import Header from "./src/components/Header";
 import FirstPage from "./src/screens/FirstPage";
 import LogIn from "./src/screens/LogIn";
 import Register from "./src/screens/Register";
+import MedicalAppointment from "./src/screens/MedicalAppointment"
 import { Ionicons } from "@expo/vector-icons";
 import { AuthProvider, useAuth } from "./src/contexts/authContext";
 
@@ -68,6 +69,14 @@ const TabNavigator = () => {
           tabBarIcon: () => {
             return <Ionicons name="home" size={30} color="#874FFF" />;
           },
+        }}
+      />
+      <Tab.Screen
+        component={MedicalAppointment}
+        name="MedicalAppointment"
+        options={{
+          headerShown: false,
+          tabBarButton: () => null,
         }}
       />
     </Tab.Navigator>
