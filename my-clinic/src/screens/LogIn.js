@@ -21,8 +21,7 @@ const LogIn = () => {
     } catch (error) {
       setLoading(false);
       if (
-        error.code === "auth/user-not-found" ||
-        error.code === "auth/wrong-password"
+        error.code === "auth/invalid-credential"
       ) {
         alert("Invalid email or password");
       } else if (error.code === "auth/too-many-requests") {

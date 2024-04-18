@@ -9,6 +9,7 @@ import FirstPage from "./src/screens/FirstPage";
 import LogIn from "./src/screens/LogIn";
 import Register from "./src/screens/Register";
 import MedicalAppointment from "./src/screens/MedicalAppointment"
+import Profile from "./src/screens/Profile";
 import { Ionicons } from "@expo/vector-icons";
 import { AuthProvider, useAuth } from "./src/contexts/authContext";
 
@@ -68,6 +69,21 @@ const TabNavigator = () => {
           tabBarActiveTintColor: "#000000",
           tabBarIcon: () => {
             return <Ionicons name="home" size={30} color="#874FFF" />;
+          },
+        }}
+      />
+      <Tab.Screen
+        component={Profile}
+        name="Profile"
+        options={{
+          headerTitle: () => <Header name="MyClinic" />,
+          headerStyle: {
+            backgroundColor: "#4c00b0",
+            height: 120,
+          },
+          tabBarActiveTintColor: "#000000",
+          tabBarIcon: () => {
+            return <Ionicons name="person" size={30} color="#874FFF" />;
           },
         }}
       />

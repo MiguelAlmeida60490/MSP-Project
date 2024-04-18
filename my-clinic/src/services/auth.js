@@ -33,3 +33,7 @@ export const signIn = async (email, password) => {
     throw error;
   }
 };
+
+export const signOut = () => {
+  return auth.signOut();
+}
