@@ -10,6 +10,7 @@ import LogIn from "./src/screens/LogIn";
 import Register from "./src/screens/Register";
 import MedicalAppointment from "./src/screens/MedicalAppointment"
 import Profile from "./src/screens/Profile";
+import RegisterDoctor from "./src/screens/RegisterDoctor";
 import { Ionicons } from "@expo/vector-icons";
 import { AuthProvider, useAuth } from "./src/contexts/authContext";
 
@@ -90,6 +91,18 @@ const TabNavigator = () => {
       <Tab.Screen
         component={MedicalAppointment}
         name="MedicalAppointment"
+        options={{
+          headerTitle: () => <Header name="MyClinic" />,
+          headerStyle: {
+            backgroundColor: "#4c00b0",
+            height: 120,
+          },
+          tabBarButton: () => null,
+        }}
+      />
+      <Tab.Screen
+        component={RegisterDoctor}
+        name="RegisterDoctor"
         options={{
           headerTitle: () => <Header name="MyClinic" />,
           headerStyle: {

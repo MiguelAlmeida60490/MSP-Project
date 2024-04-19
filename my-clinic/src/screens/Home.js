@@ -16,11 +16,11 @@ const Home = () => {
             User Signed in: {userData.email}, {userData.role}
           </Text>
           <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate("MedicalAppointment")}
-        >
-          <Text style={styles.buttonText}>Schedule Medical appointment</Text>
-        </TouchableOpacity>
+            style={styles.button}
+            onPress={() => navigation.navigate("MedicalAppointment")}
+          >
+            <Text style={styles.buttonText}>Schedule Medical appointment</Text>
+          </TouchableOpacity>
         </View>
       );
     }
@@ -35,10 +35,18 @@ const Home = () => {
     }
     if (userData.role === "admin") {
       return (
-        <View>
-          <Text>
+        <View style={styles.container}>
+          <Text style={{ marginBottom: 30 }}>
             User Signed in: {userData.email}, {userData.role}
           </Text>
+          <TouchableOpacity style={styles.button}>
+            <Text
+              style={styles.buttonText}
+              onPress={() => navigation.navigate("RegisterDoctor")}
+            >
+              Register Doctor
+            </Text>
+          </TouchableOpacity>
         </View>
       );
     }
