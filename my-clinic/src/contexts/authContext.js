@@ -13,7 +13,6 @@ const getUser = async (userId) => {
     if (userDoc.exists) {
       return userDoc.data();
     } else {
-      console.log("No user document found");
       return null;
     }
   } catch (error) {

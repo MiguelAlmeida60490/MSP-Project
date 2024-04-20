@@ -9,7 +9,7 @@ const Profile = () => {
 
   const handleLogOut = () => {
     signOut();
-    navigation.navigate("Home");
+    navigation.navigate("FirstPage");
   };
 
   return (

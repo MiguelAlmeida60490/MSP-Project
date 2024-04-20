@@ -17,7 +17,10 @@ const LogIn = () => {
     try {
       const user = await signIn(email, password);
       setLoading(false);
-      navigation.navigate("Home");
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'TabNavigator'}]
+      });
     } catch (error) {
       setLoading(false);
       if (

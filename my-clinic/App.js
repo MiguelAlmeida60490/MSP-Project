@@ -8,7 +8,7 @@ import Header from "./src/components/Header";
 import FirstPage from "./src/screens/FirstPage";
 import LogIn from "./src/screens/LogIn";
 import Register from "./src/screens/Register";
-import MedicalAppointment from "./src/screens/MedicalAppointment"
+import MedicalAppointment from "./src/screens/MedicalAppointment";
 import Profile from "./src/screens/Profile";
 import RegisterDoctor from "./src/screens/RegisterDoctor";
 import { Ionicons } from "@expo/vector-icons";
@@ -21,7 +21,7 @@ export default function App() {
   return (
     <AuthProvider>
       <NavigationContainer>
-        <AppNavigator />
+        <StackNavigator />
       </NavigationContainer>
     </AuthProvider>
   );
@@ -47,6 +47,13 @@ const StackNavigator = () => {
       <Stack.Screen
         component={LogIn}
         name="LogIn"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        component={TabNavigator}
+        name="TabNavigator"
         options={{
           headerShown: false,
         }}
@@ -114,10 +121,4 @@ const TabNavigator = () => {
       />
     </Tab.Navigator>
   );
-};
-
-const AppNavigator = () => {
-  const { currentUser } = useAuth();
-
-  return <>{currentUser ? <TabNavigator /> : <StackNavigator />}</>;
 };
