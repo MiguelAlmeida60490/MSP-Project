@@ -16,6 +16,7 @@ export const styles = StyleSheet.create({
     backgroundColor: "purple",
     padding: 15,
     borderRadius: 10,
+    margin: 20,
   },
   buttonText: {
     color: "white",
@@ -59,18 +60,18 @@ export const styles = StyleSheet.create({
   },
   centeredView: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginTop: 22,
   },
   modalView: {
     margin: 20,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: 20,
-    width: '90%',
+    width: "90%",
     padding: 35,
     alignItems: "center",
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
@@ -80,6 +81,37 @@ export const styles = StyleSheet.create({
     elevation: 5,
   },
   centerText: {
-    textAlign: 'center',
+    textAlign: "center",
   },
+  dateButton: {
+    padding: 5,
+    borderRadius: 10,
+    borderColor: "black",
+    borderWidth: 1,
+    marginTop: 10
+  },
+  textBox: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginTop: 20,
+    marginBottom: 10,
+    height: 150,
+    width: "97%",
+    borderWidth: 1,
+    borderRadius: 5,
+    padding: 10,
+  },
+  dropdown: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginTop: 20,
+    marginBottom: 10,
+    height: 50,
+    width: "97%",
+    borderWidth: 1,
+    borderRadius: 5,
+    padding: 10,
+    alignSelf: "center",
+    backgroundColor: 'rgba(0,0,0,0)'
+  }
 });

@@ -9,6 +9,8 @@ import FirstPage from "./src/screens/FirstPage";
 import LogIn from "./src/screens/LogIn";
 import Register from "./src/screens/Register";
 import MedicalAppointment from "./src/screens/MedicalAppointment";
+import MedicalExam from "./src/screens/MedicalExam";
+import CheckIn from "./src/screens/CheckIn";
 import Profile from "./src/screens/Profile";
 import RegisterDoctor from "./src/screens/RegisterDoctor";
 import { Ionicons } from "@expo/vector-icons";
@@ -98,6 +100,30 @@ const TabNavigator = () => {
       <Tab.Screen
         component={MedicalAppointment}
         name="MedicalAppointment"
+        options={{
+          headerTitle: () => <Header name="MyClinic" />,
+          headerStyle: {
+            backgroundColor: "#4c00b0",
+            height: 120,
+          },
+          tabBarButton: () => null,
+        }}
+      />
+      <Tab.Screen
+        component={MedicalExam}
+        name="MedicalExam"
+        options={{
+          headerTitle: () => <Header name="MyClinic" />,
+          headerStyle: {
+            backgroundColor: "#4c00b0",
+            height: 120,
+          },
+          tabBarButton: () => null,
+        }}
+      />
+      <Tab.Screen
+        component={CheckIn}
+        name="CheckIn"
         options={{
           headerTitle: () => <Header name="MyClinic" />,
           headerStyle: {

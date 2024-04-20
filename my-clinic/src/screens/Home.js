@@ -12,14 +12,23 @@ const Home = () => {
     if (userData.role === "client") {
       return (
         <View style={styles.container}>
-          <Text>
-            User Signed in: {userData.email}, {userData.role}
-          </Text>
           <TouchableOpacity
             style={styles.button}
             onPress={() => navigation.navigate("MedicalAppointment")}
           >
-            <Text style={styles.buttonText}>Schedule Medical appointment</Text>
+            <Text style={styles.buttonText}>Schedule Medical Appointment</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate("MedicalExam")}
+          >
+            <Text style={styles.buttonText}>Schedule Medical Exam</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate("CheckIn")}
+          >
+            <Text style={styles.buttonText}>Check In</Text>
           </TouchableOpacity>
         </View>
       );
@@ -27,18 +36,14 @@ const Home = () => {
     if (userData.role === "doctor") {
       return (
         <View>
-          <Text>
-            User Signed in: {userData.email}, {userData.role}
-          </Text>
+          <Text>In Maintenance</Text>
         </View>
       );
     }
     if (userData.role === "admin") {
       return (
         <View style={styles.container}>
-          <Text style={{ marginBottom: 30 }}>
-            User Signed in: {userData.email}, {userData.role}
-          </Text>
+          <Text style={{ marginBottom: 30 }}></Text>
           <TouchableOpacity style={styles.button}>
             <Text
               style={styles.buttonText}
