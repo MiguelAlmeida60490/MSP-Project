@@ -45,7 +45,7 @@ const RegisterDoctor = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.mainText}>Register</Text>
+      <Text style={styles.mainText}>Doctor Info</Text>
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -70,7 +70,7 @@ const RegisterDoctor = () => {
       ) : (
         <View>
           <Pressable style={styles.pressable} onPress={doSignUp}>
-            <Text style={styles.mainText}>Sign Up</Text>
+            <Text style={styles.mainText}>Register</Text>
           </Pressable>
         </View>
       )}

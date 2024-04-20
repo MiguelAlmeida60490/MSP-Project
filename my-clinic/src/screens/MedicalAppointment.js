@@ -10,15 +10,31 @@ import DropDownPicker from "react-native-dropdown-picker";
 
 const MedicalAppointment = () => {
   const navigation = useNavigation();
-  const { currentUser, userData } = useAuth();
+  const { userData } = useAuth();
   const [date, setDate] = useState("");
   const [openDate, setOpenDate] = useState(false);
-  const [doctor, setDoctor] = useState("");
   const [desc, setDesc] = useState("");
   const [loading, setLoading] = useState("");
+
   const [listDoctors, setListDoctors] = useState([]);
   const [openDoctors, setOpenDoctors] = useState(false);
-  const [value, setValue] = useState(null);
+  const [doctorValue, setDoctorValue] = useState(null);
+
+  const [listTypes, setListTypes] = useState([
+    { label: "Ophthalmology", value: "Ophthalmology"},
+    { label: "Cardiology", value: "Cardiology"},
+    { label: "Pediatric", value: "Pediatric"},
+    { label: "Dermatology", value: "Dermatology"},
+    { label: "Gynecology", value: "Gynecology"},
+    { label: "Obstetrics", value: "Obstetrics"},
+    { label: "Neurology", value: "Neurology"},
+    { label: "Nutrition", value: "Nutrition"},
+    { label: "Oncology", value: "Oncology"},
+    { label: "Psychiatry", value: "Psychiatry"},
+    { label: "Rheumatology", value: "Rheumatology"},
+  ]);
+  const [openTypes, setOpenTypes] = useState(false);
+  const [typeValue, setTypeValue] = useState(null);
 
   useEffect(() => {
     app
@@ -53,16 +69,15 @@ const MedicalAppointment = () => {
       checkIn: false,
       clientEmail: userData.email,
       date,
-      value,
+      doctorEmail: doctorValue,
       desc,
+      type: typeValue
     });
   };
 
   function handleOnPress() {
     setOpenDate(!openDate);
-  }
-
-  console.log(listDoctors);
+  };
 
   return (
     <View style={styles.container}>
@@ -87,13 +102,24 @@ const MedicalAppointment = () => {
       </View>
       <DropDownPicker
         open={openDoctors}
-        value={value}
+        value={doctorValue}
         items={listDoctors}
         setOpen={setOpenDoctors}
-        setValue={setValue}
+        setValue={setDoctorValue}
         setItems={setListDoctors}
         style={styles.dropdown}
         placeholder="Select your preferred doctor"
+        textStyle={{ fontSize: 18, fontWeight: "bold" }}
+      />
+      <DropDownPicker
+        open={openTypes}
+        value={typeValue}
+        items={listTypes}
+        setOpen={setOpenTypes}
+        setValue={setTypeValue}
+        setItems={setListTypes}
+        style={styles.dropdown}
+        placeholder="Select type of appointment"
         textStyle={{ fontSize: 18, fontWeight: "bold" }}
       />
       <TextInput

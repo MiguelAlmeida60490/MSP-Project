@@ -17,6 +17,7 @@ export const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 10,
     margin: 20,
+    alignItems: "center"
   },
   buttonText: {
     color: "white",
@@ -113,5 +114,30 @@ export const styles = StyleSheet.create({
     padding: 10,
     alignSelf: "center",
     backgroundColor: 'rgba(0,0,0,0)'
-  }
+  },
+  checkInContainer: {
+    flex: 1,
+    backgroundColor: "fff",
+  },
+  boxView: {
+    flex: 1,
+    backgroundColor: "#fff",
+    margin: 10,
+    padding: 10,
+    borderRadius: 10,
+    shadowColor: "red",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 7,
+    alignItems: "center",
+  },
+  boxTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  boxDescription: {
+    fontSize: 16,
+    marginTop: 5,
+  },
 });

@@ -19,10 +19,10 @@ const MedicalExam = () => {
   const [doctorValue, setDoctorValue] = useState(null);
 
   const [listEquipments, setListEquipments] = useState([
-    { label: "X-Ray", value: "x-ray" },
-    { label: "Tac", value: "tac" },
-    { label: "Magnetic Resonance", value: "magnetic resonance" },
-    { label: "Ultrasound", value: "ultrasound" },
+    { label: "X-Ray", value: "X-Ray" },
+    { label: "Tac", value: "Tac" },
+    { label: "Magnetic Resonance", value: "Magnetic Resonance" },
+    { label: "Ultrasound", value: "Ultrasound" },
   ]);
   const [openEquipments, setOpenEquipments] = useState(false);
   const [equipmentValue, setEquipmentValue] = useState(null);
@@ -77,7 +77,7 @@ const MedicalExam = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.mainText}>Schedule your appointment</Text>
+      <Text style={styles.mainText}>Schedule your medical exam</Text>
       {date ? <Text>Date Picked: {date}</Text> : <Text>No date selected</Text>}
       <View>
         <TouchableOpacity style={styles.dateButton} onPress={handleOnPress}>
