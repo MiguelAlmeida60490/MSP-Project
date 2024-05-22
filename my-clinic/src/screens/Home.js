@@ -52,6 +52,22 @@ const Home = () => {
               Register Doctor
             </Text>
           </TouchableOpacity>
+          <TouchableOpacity style={styles.button}>
+            <Text
+              style={styles.buttonText}
+              onPress={() => navigation.navigate("AddPrices")}
+            >
+              Add New Price
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button}>
+            <Text
+              style={styles.buttonText}
+              onPress={() => navigation.navigate("AddInsurances")}
+            >
+              Add New Insurance
+            </Text>
+          </TouchableOpacity>
         </View>
       );
     }
