@@ -36,7 +36,12 @@ const Home = () => {
     if (userData.role === "doctor") {
       return (
         <View>
-          <Text>In Maintenance</Text>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={(userData) => navigation.navigate("DoctorPatients")}
+          >
+            <Text style={styles.buttonText}>My patients</Text>
+          </TouchableOpacity>
         </View>
       );
     }
