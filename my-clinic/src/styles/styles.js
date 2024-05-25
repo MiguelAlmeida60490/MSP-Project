@@ -170,4 +170,16 @@ export const styles = StyleSheet.create({
     color: '#fff', // Cor do texto do botão
     fontWeight: 'bold', // Estilo de fonte negrito
   },
+  patiInfoButton: {
+    backgroundColor: "purple",
+    padding: 15,
+    borderRadius: 10,
+    alignItems: "right",
+    width: '20%', // Largura do botão ajustada para 80% da largura da caixa
+    marginBottom: 30,
+  },
+  patiInfoButtonText: {
+    color: '#fff', // Cor do texto do botão
+    fontWeight: 'bold', // Estilo de fonte negrito
+  },
 });

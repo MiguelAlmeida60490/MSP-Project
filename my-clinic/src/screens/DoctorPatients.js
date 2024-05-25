@@ -33,11 +33,11 @@ const DoctorPatients = ({ route }) => {
         const docPati = [];
         const uniqueEmails = new Set();
         querySnapshot.forEach((patis) => {
-          const {email, name} = patis.data();
+          const {email, name, gender, weight, height, birthDate, birthPlace} = patis.data();
           listAppoint.forEach((appoi) => {
             if(patis.data().email === appoi.clientEmail && !uniqueEmails.has(email)){
               uniqueEmails.add(email);
-              docPati.push({email,name});
+              docPati.push({email,name,gender, weight, height, birthDate, birthPlace});
           }
           })
         })

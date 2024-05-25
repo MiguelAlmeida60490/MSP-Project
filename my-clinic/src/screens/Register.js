@@ -10,7 +10,13 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [gender, setGender] = useState("");
+  const [weight, setWeight] =  useState("");
+  const [height, setHeight] = useState("");
+  const [birthDate, setBirthDate] = useState("");
+  const [birthPlace, setBirthPlace] = useState("");
   const [loading, setLoading] = useState("");
+  
 
   const navigation = useNavigation();
 
@@ -22,7 +28,10 @@ const Register = () => {
         handleAddUser("client");
       }
       setLoading(false);
-      navigation.navigate("Home");
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'TabNavigator'}]
+      });
     } catch (error) {
       setLoading(false);
       if (error.code === "auth/email-already-in-use") {
@@ -39,6 +48,11 @@ const Register = () => {
     app.firestore().collection("users").doc(email).set({
       name,
       email,
+      gender,
+      weight,
+      height,
+      birthDate,
+      birthPlace,
       role,
     });
   };
@@ -57,6 +71,36 @@ const Register = () => {
         placeholder="Name"
         value={name}
         onChangeText={(name) => setName(name)}
+      ></TextInput>
+      <TextInput
+        style={styles.input}
+        placeholder="Gender"
+        value={gender}
+        onChangeText={(gender) => setGender(gender)}
+      ></TextInput>
+      <TextInput
+        style={styles.input}
+        placeholder="Weight (Kg) "
+        value={weight}
+        onChangeText={(weight) => setWeight(weight)}
+      ></TextInput>
+      <TextInput
+        style={styles.input}
+        placeholder="Height (Cm) "
+        value={height}
+        onChangeText={(height) => setHeight(height)}
+      ></TextInput>
+      <TextInput
+        style={styles.input}
+        placeholder="Date of birth"
+        value={birthDate}
+        onChangeText={(birthDate) => setBirthDate(birthDate)}
+      ></TextInput>
+      <TextInput
+        style={styles.input}
+        placeholder="Place of birth"
+        value={birthPlace}
+        onChangeText={(birthPlace) => setBirthPlace(birthPlace)}
       ></TextInput>
       <TextInput
         style={styles.input}
