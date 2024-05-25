@@ -16,3 +16,16 @@ Conta admin na aplicacação:
 
 # email -> admin@myclinic.com
 # password -> admin123
+
+Conta doctor na aplicação:
+
+# email -> jp@myclinic.com
+# password -> jpbcdp
+
+# email -> medico123@myclinic.com
+# password -> medico123
+
+Conta client na aplicação: 
+
+# email -> miguel@gmail.com
+# password -> 123456789

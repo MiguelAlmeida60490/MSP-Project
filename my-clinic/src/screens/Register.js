@@ -15,6 +15,7 @@ const Register = () => {
   const [height, setHeight] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [birthPlace, setBirthPlace] = useState("");
+
   const [loading, setLoading] = useState("");
   
 
@@ -54,8 +55,10 @@ const Register = () => {
       birthDate,
       birthPlace,
       role,
+      insurance: "No insurance"
     });
   };
+   
 
   return (
     <View style={styles.container}>
