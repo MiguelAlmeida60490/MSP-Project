@@ -21,6 +21,7 @@ const MedicalAppointment = () => {
   const [doctorValue, setDoctorValue] = useState(null);
 
   const [listTypes, setListTypes] = useState([
+    { label: "General Consultation", value: "General Consultation"},
     { label: "Ophthalmology", value: "Ophthalmology"},
     { label: "Cardiology", value: "Cardiology"},
     { label: "Pediatric", value: "Pediatric"},
