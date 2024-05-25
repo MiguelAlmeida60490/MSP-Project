@@ -8,7 +8,6 @@ const DoctorPatients = ({ route }) => {
   const navigation = useNavigation();
   const [listAppoint, setListAppoint] = useState([]);
   const [listPatients, setListPatients] = useState([]);
-  const [doctor, setDoctor] = useState([]);
 
   useEffect(() => {
     app
@@ -61,7 +60,7 @@ const DoctorPatients = ({ route }) => {
             </Text>
             <TouchableOpacity
             style={styles.patiButton}
-            onPress={() => navigation.navigate("Home")}
+            onPress={() => navigation.navigate("PatientInfo", {item})}
           >
             <Text style={styles.patiButtonText}>Info</Text>
           </TouchableOpacity>

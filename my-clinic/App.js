@@ -17,6 +17,7 @@ import AddPrices from "./src/screens/AddPrices";
 import AddInsurances from "./src/screens/AddInsurances";
 import DoctorPatients from "./src/screens/DoctorPatients"
 import CreateReceipt from "./src/screens/CreateReceipt";
+import PatientInfo from "./src/screens/PatientInfo";
 import { Ionicons } from "@expo/vector-icons";
 import { AuthProvider, useAuth } from "./src/contexts/authContext";
 
@@ -190,6 +191,18 @@ const TabNavigator = () => {
         name="DoctorPatients"
         options={{
           headerTitle: () => <Header name="Patients" />,
+          headerStyle: {
+            backgroundColor: "#4c00b0",
+            height: 120,
+          },
+          tabBarButton: () => null,
+        }}
+      />
+      <Tab.Screen
+        component={PatientInfo}
+        name="PatientInfo"
+        options={{
+          headerTitle: () => <Header name="Patient Information" />,
           headerStyle: {
             backgroundColor: "#4c00b0",
             height: 120,
