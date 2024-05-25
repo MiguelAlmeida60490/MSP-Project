@@ -19,7 +19,6 @@ export const styles = StyleSheet.create({
     margin: 20,
     alignItems: "center",
     width: 250,
-    
   },
   buttonText: {
     color: "white",
@@ -27,8 +26,9 @@ export const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   buttonView: {
-    flexDirection: "row",
+    flexDirection: "column",
     justifyContent: "space-around",
+    alignItems: "center",
     width: "97%",
     marginTop: 100,
   },

@@ -38,7 +38,7 @@ const Home = () => {
         <View>
           <TouchableOpacity
             style={styles.button}
-            onPress={(userData) => navigation.navigate("DoctorPatients")}
+            onPress={() => navigation.navigate("DoctorPatients", { userData })}
           >
             <Text style={styles.buttonText}>My patients</Text>
           </TouchableOpacity>
