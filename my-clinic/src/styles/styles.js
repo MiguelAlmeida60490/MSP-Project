@@ -17,7 +17,9 @@ export const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 10,
     margin: 20,
-    alignItems: "center"
+    alignItems: "center",
+    width: 250,
+    
   },
   buttonText: {
     color: "white",
@@ -89,7 +91,7 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: "black",
     borderWidth: 1,
-    marginTop: 10
+    marginTop: 10,
   },
   textBox: {
     fontSize: 18,
@@ -113,7 +115,7 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 10,
     alignSelf: "center",
-    backgroundColor: 'rgba(0,0,0,0)'
+    backgroundColor: "rgba(0,0,0,0)",
   },
   checkInContainer: {
     flex: 1,

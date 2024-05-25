@@ -49,29 +49,29 @@ const Home = () => {
       return (
         <View style={styles.container}>
           <Text style={{ marginBottom: 30 }}></Text>
-          <TouchableOpacity style={styles.button}>
-            <Text
-              style={styles.buttonText}
-              onPress={() => navigation.navigate("RegisterDoctor")}
-            >
-              Register Doctor
-            </Text>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate("RegisterDoctor")}
+          >
+            <Text style={styles.buttonText}>Register Doctor</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
-            <Text
-              style={styles.buttonText}
-              onPress={() => navigation.navigate("AddPrices")}
-            >
-              Add New Price
-            </Text>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate("AddPrices")}
+          >
+            <Text style={styles.buttonText}>Add New Price</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
-            <Text
-              style={styles.buttonText}
-              onPress={() => navigation.navigate("AddInsurances")}
-            >
-              Add New Insurance
-            </Text>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate("AddInsurances")}
+          >
+            <Text style={styles.buttonText}>Add New Insurance</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate("CreateReceipt")}
+          >
+            <Text style={styles.buttonText}>Create New Receipt</Text>
           </TouchableOpacity>
         </View>
       );
