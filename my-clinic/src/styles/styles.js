@@ -142,4 +142,32 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     marginTop: 5,
   },
+  box: {
+    justifyContent: 'center', // Centraliza verticalmente
+    alignItems: 'center', // Centraliza horizontalmente
+    height: 50, // Altura da caixa, ajuste conforme necessário
+    width: 300, // Largura da caixa, ajuste conforme necessário
+    borderColor: '#000', // Cor da borda, ajuste conforme necessário
+    borderWidth: 1, // Largura da borda, ajuste conforme necessário
+    borderRadius: 5,
+    marginVertical: 5, // Margem vertical entre as caixas
+    flexDirection: "row"
+
+  },
+  text: {
+    textAlign: 'center', // Centraliza o texto horizontalmente
+    fontWeight: "bold",
+  },
+  patiButton: {
+    backgroundColor: "purple",
+    padding: 15,
+    borderRadius: 10,
+    alignItems: "right",
+    width: '20%', // Largura do botão ajustada para 80% da largura da caixa
+    marginLeft: 120,
+  },
+  patiButtonText: {
+    color: '#fff', // Cor do texto do botão
+    fontWeight: 'bold', // Estilo de fonte negrito
+  },
 });
