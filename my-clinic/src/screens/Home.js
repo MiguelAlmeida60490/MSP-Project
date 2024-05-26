@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, ActivityIndicator, Modal, StyleSheet, Pressable} from "react-native";
+import { View, Text, TouchableOpacity, ActivityIndicator, Modal, StyleSheet, Pressable, FlatList} from "react-native";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../contexts/authContext";
@@ -66,11 +66,26 @@ const Home = () => {
             }}>
             <View style={styles.centeredView}>
               <View style={stylesModal.modalView}>
-                <Text style={stylesModal.modalText}>Hello World!</Text>
+                <Text style={stylesModal.modalText}>
+                    Your appointments:
+                </Text>
+                <div>
+                  {console.log(listDocAppos)}
+                </div>
+                <FlatList
+                  data={listDocAppos}
+                    renderItem={({ item }) => (
+                      <View style={styles.box}>
+                        <Text style={stylesModal.modalText}>
+                          {item}
+                        </Text>
+                      </View>
+                  )}
+                />
                 <Pressable
                   style={[stylesModal.button, stylesModal.buttonClose]}
                   onPress={() => setModalVisible(!modalVisible)}>
-                  <Text style={styles.textStyle}>Hide Modal</Text>
+                  <Text style={styles.textStyle}>Close Notification</Text>
                 </Pressable>
               </View>
             </View>
