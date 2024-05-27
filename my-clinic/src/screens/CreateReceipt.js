@@ -4,6 +4,7 @@ import DropDownPicker from "react-native-dropdown-picker";
 import { app } from "../services/firebaseConfig";
 import { getApp } from "firebase/app";
 import { useNavigation } from "@react-navigation/native";
+import { Timestamp } from "firebase/firestore";
 
 const CreateReceipt = () => {
   const [listUsers, setListUsers] = useState([]);
@@ -96,6 +97,12 @@ const CreateReceipt = () => {
   }, [listUserValue]);
 
   const handleCreateReceipt = () => {
+    const createdAt = Timestamp.now().toDate().toLocaleDateString("en-GB", {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    });
+
     if (appointmentPrice) {
       if (examPrice) {
         if (
@@ -126,6 +133,7 @@ const CreateReceipt = () => {
                     .insurance
                 : "N/A",
               total: appointmentPrice + examPrice,
+              createdAt,
             });
           alert("Receipt created successfully");
           navigation.navigate("Home");
@@ -151,6 +159,7 @@ const CreateReceipt = () => {
               ? listUsers.find((item) => item.id === listUserValue).insurance
               : "N/A",
             total: appointmentPrice,
+            createdAt,
           });
         alert("Receipt created successfully");
         navigation.navigate("Home");
@@ -172,6 +181,7 @@ const CreateReceipt = () => {
             ? listUsers.find((item) => item.id === listUserValue).insurance
             : "N/A",
           total: examPrice,
+          createdAt,
         });
       alert("Receipt created successfully");
       navigation.navigate("Home");
@@ -201,8 +211,6 @@ const CreateReceipt = () => {
       }
     }
   }, [listExamsValue]);
-
-  console.log(listAppointments);
 
   return (
     <View style={styles.container}>

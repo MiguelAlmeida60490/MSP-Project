@@ -25,6 +25,7 @@ const UserReceipts = () => {
               insurance,
               total,
               user,
+              createdAt,
             } = doc.data();
             if (doc.data().user === userData.email) {
               newReceipts.push({
@@ -37,6 +38,7 @@ const UserReceipts = () => {
                 insurance,
                 total,
                 user,
+                createdAt,
                 id: doc.id,
               });
             }
@@ -46,17 +48,40 @@ const UserReceipts = () => {
       });
   }, []);
 
-  console.log(receipts);
-
   return (
     <View style={styles.container}>
       <FlatList
         data={receipts}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <View style={styles.card}>
-            <Text>{item.appointmentDescription}</Text>
-          </View>
+          <>
+            <Text>Receipt Emission Date: {item.createdAt.toString()}</Text>
+            <View style={styles.card}>
+              {item.insurance ? (
+                <Text>Insurance Used: {item.insurance}</Text>
+              ) : (
+                <></>
+              )}
+              {item.appointment ? (
+                <>
+                  <Text>{item.appointmentDescription}</Text>
+                  <Text>Appointment Cost: {item.appointmentPrice}€</Text>
+                </>
+              ) : (
+                <></>
+              )}
+              {item.exam ? (
+                <>
+                  <Text>{item.examDescription}</Text>
+                  <Text>Exam Cost: {item.examPrice}€</Text>
+                </>
+              ) : (
+                <></>
+              )}
+
+              <Text>Total Cost: {item.total}€</Text>
+            </View>
+          </>
         )}
       />
     </View>
@@ -71,6 +96,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     justifyContent: "center",
     alignItems: "center",
+    marginTop: 10,
   },
   title: {
     fontSize: 26,
