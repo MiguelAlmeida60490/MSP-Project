@@ -16,11 +16,11 @@ const DoctorPatients = ({ route }) => {
       .onSnapshot((querySnapshot) => {
         const docAppoint = [];
         querySnapshot.forEach((appoint) => {
-          const {clientEmail, doctorEmail, type} = appoint.data();
-          if(appoint.data().doctorEmail === route.params.userData.email){
-            docAppoint.push({clientEmail,doctorEmail, type});
+          const { clientEmail, doctorEmail, type } = appoint.data();
+          if (appoint.data().doctorEmail === route.params.userData.email) {
+            docAppoint.push({ clientEmail, doctorEmail, type });
           }
-        })
+        });
         setListAppoint(docAppoint);
       });
   }, []);
@@ -33,40 +33,46 @@ const DoctorPatients = ({ route }) => {
         const docPati = [];
         const uniqueEmails = new Set();
         querySnapshot.forEach((patis) => {
-          const {email, name, gender, weight, height, birthDate, birthPlace} = patis.data();
+          const { email, name, gender, weight, height, birthDate, birthPlace } =
+            patis.data();
           listAppoint.forEach((appoi) => {
-            if(patis.data().email === appoi.clientEmail && !uniqueEmails.has(email)){
+            if (
+              patis.data().email === appoi.clientEmail &&
+              !uniqueEmails.has(email)
+            ) {
               uniqueEmails.add(email);
-              docPati.push({email,name,gender, weight, height, birthDate, birthPlace});
-          }
-          })
-        })
+              docPati.push({
+                email,
+                name,
+                gender,
+                weight,
+                height,
+                birthDate,
+                birthPlace,
+              });
+            }
+          });
+        });
         setListPatients(docPati);
       });
   }, [listAppoint]);
 
   return (
     <View style={styles.container}>
-      <div>
-      {console.log(listAppoint)}
-      {console.log(listPatients)}
-    </div>
       <FlatList
-          data={listPatients}
-          renderItem={({ item }) => (
-            <View style={styles.box}>
-            <Text style={styles.text}>
-              {item.name}
-            </Text>
+        data={listPatients}
+        renderItem={({ item }) => (
+          <View style={styles.box}>
+            <Text style={styles.text}>{item.name}</Text>
             <TouchableOpacity
-            style={styles.patiButton}
-            onPress={() => navigation.navigate("PatientInfo", {item})}
-          >
-            <Text style={styles.patiButtonText}>Info</Text>
-          </TouchableOpacity>
+              style={styles.patiButton}
+              onPress={() => navigation.navigate("PatientInfo", { item })}
+            >
+              <Text style={styles.patiButtonText}>Info</Text>
+            </TouchableOpacity>
           </View>
-            )}
-        />
+        )}
+      />
     </View>
   );
 };

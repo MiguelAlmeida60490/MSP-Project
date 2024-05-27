@@ -175,7 +175,7 @@ export const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 10,
     alignItems: "right",
-    width: '20%', // Largura do botão ajustada para 80% da largura da caixa
+    width: '60%', // Largura do botão ajustada para 80% da largura da caixa
     marginBottom: 30,
   },
   patiInfoButtonText: {
