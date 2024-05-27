@@ -103,7 +103,7 @@ const MedicalExam = () => {
         setOpen={setOpenDoctors}
         setValue={setDoctorValue}
         setItems={setListDoctors}
-        style={styles.dropdown}
+        style={[styles.dropdown, {zIndex: 2}]}
         placeholder="Select your preferred doctor"
         textStyle={{ fontSize: 18, fontWeight: "bold" }}
       />
@@ -114,7 +114,7 @@ const MedicalExam = () => {
         setOpen={setOpenEquipments}
         setValue={setEquipmentValue}
         setItems={setListEquipments}
-        style={styles.dropdown}
+        style={[styles.dropdown, {zIndex: 1}]}
         placeholder="Select the type of exam"
         textStyle={{ fontSize: 18, fontWeight: "bold" }}
       />
