@@ -32,7 +32,6 @@ const Home = () => {
 
   useEffect(() => {
     if (userData.role === "client") {
-      console.log("entrei")
       app.firestore().collection("appointments").onSnapshot((querySnapshot) => {
         const newAppos = [];
         querySnapshot.forEach((appo) => {
