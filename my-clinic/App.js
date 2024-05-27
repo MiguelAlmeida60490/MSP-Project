@@ -15,12 +15,13 @@ import Profile from "./src/screens/Profile";
 import RegisterDoctor from "./src/screens/RegisterDoctor";
 import AddPrices from "./src/screens/AddPrices";
 import AddInsurances from "./src/screens/AddInsurances";
-import DoctorPatients from "./src/screens/DoctorPatients"
+import DoctorPatients from "./src/screens/DoctorPatients";
 import CreateReceipt from "./src/screens/CreateReceipt";
 import PatientInfo from "./src/screens/PatientInfo";
 import Payments from "./src/screens/Payments";
 import { Ionicons } from "@expo/vector-icons";
 import { AuthProvider, useAuth } from "./src/contexts/authContext";
+import UserReceipts from "./src/screens/UserReceipts";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -216,6 +217,18 @@ const TabNavigator = () => {
         name="Payments"
         options={{
           headerTitle: () => <Header name="Payments" />,
+          headerStyle: {
+            backgroundColor: "#4c00b0",
+            height: 120,
+          },
+          tabBarButton: () => null,
+        }}
+      />
+      <Tab.Screen
+        component={UserReceipts}
+        name="UserReceipts"
+        options={{
+          headerTitle: () => <Header name="My Receipts" />,
           headerStyle: {
             backgroundColor: "#4c00b0",
             height: 120,
