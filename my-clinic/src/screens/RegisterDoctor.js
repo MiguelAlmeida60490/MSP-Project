@@ -9,6 +9,7 @@ const RegisterDoctor = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [type, setType] = useState("");
   const [loading, setLoading] = useState("");
 
   const navigation = useNavigation();
@@ -40,6 +41,7 @@ const RegisterDoctor = () => {
       name,
       email,
       role,
+      type
     });
   };
 
@@ -57,6 +59,13 @@ const RegisterDoctor = () => {
         placeholder="Name"
         value={name}
         onChangeText={(name) => setName(name)}
+      ></TextInput>
+       <TextInput
+        style={styles.input}
+        placeholder="Type"
+        value={type}
+        onChangeText={(type) => setType(type)}
+        secureTextEntry={true}
       ></TextInput>
       <TextInput
         style={styles.input}
