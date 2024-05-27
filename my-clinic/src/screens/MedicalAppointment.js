@@ -7,6 +7,7 @@ import DatePicker from "react-native-modern-datepicker";
 import { TextInput } from "react-native-gesture-handler";
 import { app } from "../services/firebaseConfig";
 import DropDownPicker from "react-native-dropdown-picker";
+import Checkbox from "expo-checkbox";
 
 const MedicalAppointment = () => {
   const navigation = useNavigation();
@@ -21,21 +22,22 @@ const MedicalAppointment = () => {
   const [doctorValue, setDoctorValue] = useState(null);
 
   const [listTypes, setListTypes] = useState([
-    { label: "General Consultation", value: "General Consultation"},
-    { label: "Ophthalmology", value: "Ophthalmology"},
-    { label: "Cardiology", value: "Cardiology"},
-    { label: "Pediatric", value: "Pediatric"},
-    { label: "Dermatology", value: "Dermatology"},
-    { label: "Gynecology", value: "Gynecology"},
-    { label: "Obstetrics", value: "Obstetrics"},
-    { label: "Neurology", value: "Neurology"},
-    { label: "Nutrition", value: "Nutrition"},
-    { label: "Oncology", value: "Oncology"},
-    { label: "Psychiatry", value: "Psychiatry"},
-    { label: "Rheumatology", value: "Rheumatology"},
+    { label: "General Consultation", value: "General Consultation" },
+    { label: "Ophthalmology", value: "Ophthalmology" },
+    { label: "Cardiology", value: "Cardiology" },
+    { label: "Pediatric", value: "Pediatric" },
+    { label: "Dermatology", value: "Dermatology" },
+    { label: "Gynecology", value: "Gynecology" },
+    { label: "Obstetrics", value: "Obstetrics" },
+    { label: "Neurology", value: "Neurology" },
+    { label: "Nutrition", value: "Nutrition" },
+    { label: "Oncology", value: "Oncology" },
+    { label: "Psychiatry", value: "Psychiatry" },
+    { label: "Rheumatology", value: "Rheumatology" },
   ]);
   const [openTypes, setOpenTypes] = useState(false);
   const [typeValue, setTypeValue] = useState(null);
+  const [isOnline, setIsOnline] = useState(false);
 
   useEffect(() => {
     app
@@ -66,19 +68,31 @@ const MedicalAppointment = () => {
   };
 
   const handleAddAppo = () => {
-    app.firestore().collection("appointments").add({
-      checkIn: false,
-      clientEmail: userData.email,
-      date,
-      doctorEmail: doctorValue,
-      desc,
-      type: typeValue
-    });
+    if (isOnline) {
+      app.firestore().collection("appointments").add({
+        checkIn: false,
+        clientEmail: userData.email,
+        date,
+        doctorEmail: doctorValue,
+        desc,
+        type: typeValue,
+        link: "https://videoconf-colibri.zoom.us/j/2743203850",
+      });
+    } else {
+      app.firestore().collection("appointments").add({
+        checkIn: false,
+        clientEmail: userData.email,
+        date,
+        doctorEmail: doctorValue,
+        desc,
+        type: typeValue,
+      });
+    }
   };
 
   function handleOnPress() {
     setOpenDate(!openDate);
-  };
+  }
 
   return (
     <View style={styles.container}>
@@ -108,7 +122,7 @@ const MedicalAppointment = () => {
         setOpen={setOpenDoctors}
         setValue={setDoctorValue}
         setItems={setListDoctors}
-        style={styles.dropdown}
+        style={[styles.dropdown, {zIndex: 2}]}
         placeholder="Select your preferred doctor"
         textStyle={{ fontSize: 18, fontWeight: "bold" }}
       />
@@ -119,7 +133,7 @@ const MedicalAppointment = () => {
         setOpen={setOpenTypes}
         setValue={setTypeValue}
         setItems={setListTypes}
-        style={styles.dropdown}
+        style={[styles.dropdown, {zIndex: 1}]}
         placeholder="Select type of appointment"
         textStyle={{ fontSize: 18, fontWeight: "bold" }}
       />
@@ -131,6 +145,22 @@ const MedicalAppointment = () => {
         multiline={true}
         textAlignVertical="top"
       ></TextInput>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          marginTop: 10,
+          alignItems: "center",
+        }}
+      >
+        <Checkbox
+          value={isOnline}
+          onValueChange={setIsOnline}
+          color={isOnline ? "#4c00b0" : undefined}
+        />
+        <Text style={{ marginLeft: 10, fontSize: 18 }}>Online Appointment</Text>
+      </View>
+
       <TouchableOpacity
         style={styles.button}
         onPress={() => {
