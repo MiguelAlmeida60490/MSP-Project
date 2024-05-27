@@ -12,6 +12,9 @@ const Home = () => {
   const [listDocAppos, setListDocAppos] = useState([]);
   const [modalVisible, setModalVisible] = useState(true);
 
+  const [listClientAppos, setListClientAppos] = useState([]);
+
+
   useEffect(() => {
     if (userData.role === "doctor") {
 
@@ -27,10 +30,60 @@ const Home = () => {
     }
   }, []);
 
+  useEffect(() => {
+    if (userData.role === "client") {
+      console.log("entrei")
+      app.firestore().collection("appointments").onSnapshot((querySnapshot) => {
+        const newAppos = [];
+        querySnapshot.forEach((appo) => {
+          const {date} = appo.data();
+          if (appo.data().clientEmail === userData.email)
+            newAppos.push(date);
+        });
+        setListClientAppos(newAppos);
+      });
+    }
+  }, []);
+
+
   const HomeContent = () => {
     if (userData.role === "client") {
       return (
         <View style={styles.container}>
+           <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              Alert.alert('Modal has been closed.');
+              setModalVisible(!modalVisible);
+            }}>
+            <View style={styles.centeredView}>
+              <View style={stylesModal.modalView}>
+                <Text style={stylesModal.modalText}>
+                    Your appointments:
+                </Text>
+                <div>
+                  {console.log(listClientAppos)}
+                </div>
+                <FlatList
+                  data={listClientAppos}
+                    renderItem={({ item }) => (
+                      <View style={styles.box}>
+                        <Text style={stylesModal.modalText}>
+                          {item}
+                        </Text>
+                      </View>
+                  )}
+                />
+                <Pressable
+                  style={[stylesModal.button, stylesModal.buttonClose]}
+                  onPress={() => setModalVisible(!modalVisible)}>
+                  <Text style={styles.textStyle}>Close Notification</Text>
+                </Pressable>
+              </View>
+            </View>
+          </Modal>
           <TouchableOpacity
             style={styles.button}
             onPress={() => navigation.navigate("MedicalAppointment")}
