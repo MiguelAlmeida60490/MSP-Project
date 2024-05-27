@@ -79,7 +79,7 @@ const Home = () => {
             >
               <View style={styles.centeredView}>
                 <View style={stylesModal.modalView}>
-                  <Text style={stylesModal.modalText}>Your appointments:</Text>
+                  {listClientAppos.length > 0 ? ( <><Text style={stylesModal.modalText}>Your appointments:</Text>
                   <FlatList
                     data={listClientAppos}
                     renderItem={({ item }) => (
@@ -88,6 +88,9 @@ const Home = () => {
                       </View>
                     )}
                   />
+                  </>) : 
+                  (<Text style={{fontWeight: "bold", fontSize: 18, marginBottom: 10}}>No appointments in the near future</Text>)}
+                 
                   <Pressable
                     style={[stylesModal.button, stylesModal.buttonClose]}
                     onPress={() => setModalVisible(!modalVisible)}
