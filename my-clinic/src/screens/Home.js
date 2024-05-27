@@ -183,7 +183,6 @@ const Home = () => {
               style={styles.button}
               onPress={() => navigation.navigate("AddInsurances")}
             >
-              listClientAppos
               <Text style={styles.buttonText}>Add New Insurance</Text>
             </TouchableOpacity>
             <TouchableOpacity

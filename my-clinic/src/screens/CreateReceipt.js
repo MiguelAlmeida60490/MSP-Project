@@ -52,7 +52,7 @@ const CreateReceipt = () => {
               doc.data();
             if (doc.data().clientEmail === listUserValue && doc.data().isPaid) {
               newAppointments.push({
-                label: type + " -> " + date,
+                label: type + ", " + date,
                 value: doc.id,
                 clientEmail,
                 doctorEmail,
@@ -80,7 +80,7 @@ const CreateReceipt = () => {
               doc.data();
             if (doc.data().client === listUserValue && isPaid) {
               newExams.push({
-                label: equipment + " -> " + date,
+                label: equipment + ", " + date,
                 value: doc.id,
                 client,
                 doctor,
@@ -110,8 +110,14 @@ const CreateReceipt = () => {
             .collection("receipts")
             .add({
               appointment: listAppointmentValue,
+              appointmentDescription: listAppointments.find(
+                (item) => item.value === listAppointmentValue
+              ).label,
               appointmentPrice,
               exam: listExamsValue,
+              examDescription: listExams.find(
+                (item) => item.value === listExamsValue
+              ).label,
               examPrice,
               user: listUserValue,
               insurance: listUsers.find((item) => item.value === listUserValue)
@@ -130,6 +136,14 @@ const CreateReceipt = () => {
           .collection("receipts")
           .add({
             appointment: listAppointmentValue,
+            appointmentDescription:
+              listAppointments.find(
+                (item) => item.value === listAppointmentValue
+              ).label +
+              ", " +
+              listAppointments.find(
+                (item) => item.value === listAppointmentValue
+              ).date,
             appointmentPrice,
             user: listUserValue,
             insurance: listUsers.find((item) => item.id === listUserValue)
@@ -147,6 +161,10 @@ const CreateReceipt = () => {
         .collection("receipts")
         .add({
           exam: listExamsValue,
+          examDescription:
+            listExams.find((item) => item.value === listExamsValue).equipment +
+            ", " +
+            listExams.find((item) => item.value === listExamsValue).date,
           examPrice,
           user: listUserValue,
           insurance: listUsers.find((item) => item.id === listUserValue)
@@ -183,6 +201,8 @@ const CreateReceipt = () => {
       }
     }
   }, [listExamsValue]);
+
+  console.log(listAppointments);
 
   return (
     <View style={styles.container}>
