@@ -19,47 +19,66 @@ const Home = () => {
   const { currentUser, userData } = useAuth();
 
   const [listDocAppos, setListDocAppos] = useState([]);
-  const [modalVisible, setModalVisible] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const [listClientAppos, setListClientAppos] = useState([]);
 
   useEffect(() => {
+    let unsubscribe;
+
     if (userData) {
       if (userData.role === "doctor") {
-        app
+        unsubscribe = app
           .firestore()
           .collection("appointments")
+          .where("doctorEmail", "==", userData.email)
           .onSnapshot((querySnapshot) => {
             const newAppos = [];
             querySnapshot.forEach((appo) => {
               const { date } = appo.data();
-              if (appo.data().doctorEmail === userData.email)
-                newAppos.push(date);
+              newAppos.push(date);
             });
             setListDocAppos(newAppos);
           });
       }
     }
-  }, [currentUser]);
+
+    return () => {
+      // Unsubscribe from the snapshot listener when component unmounts
+      if (unsubscribe) {
+        unsubscribe();
+      }
+    };
+  }, [userData]);
 
   useEffect(() => {
+    let unsubscribe;
+
     if (userData) {
       if (userData.role === "client") {
-        app
+        unsubscribe = app
           .firestore()
           .collection("appointments")
+          .where("clientEmail", "==", userData.email)
           .onSnapshot((querySnapshot) => {
             const newAppos = [];
             querySnapshot.forEach((appo) => {
               const { date } = appo.data();
-              if (appo.data().clientEmail === userData.email)
-                newAppos.push(date);
+              newAppos.push(date);
             });
             setListClientAppos(newAppos);
+            setModalVisible(true); // Set modalVisible to true once data is fetched
           });
       }
     }
-  }, [currentUser]);
+
+    return () => {
+      // Unsubscribe from the snapshot listener when component unmounts
+      if (unsubscribe) {
+        unsubscribe();
+      }
+    };
+  }, [userData]);
 
   console.log(listClientAppos);
 
@@ -79,18 +98,32 @@ const Home = () => {
             >
               <View style={styles.centeredView}>
                 <View style={stylesModal.modalView}>
-                  {listClientAppos.length > 0 ? ( <><Text style={stylesModal.modalText}>Your appointments:</Text>
-                  <FlatList
-                    data={listClientAppos}
-                    renderItem={({ item }) => (
-                      <View style={styles.box}>
-                        <Text style={stylesModal.modalText}>{item}</Text>
-                      </View>
-                    )}
-                  />
-                  </>) : 
-                  (<Text style={{fontWeight: "bold", fontSize: 18, marginBottom: 10}}>No appointments in the near future</Text>)}
-                 
+                  {listClientAppos.length > 0 ? (
+                    <>
+                      <Text style={stylesModal.modalText}>
+                        Your appointments:
+                      </Text>
+                      <FlatList
+                        data={listClientAppos}
+                        renderItem={({ item }) => (
+                          <View style={styles.box}>
+                            <Text style={stylesModal.modalText}>{item}</Text>
+                          </View>
+                        )}
+                      />
+                    </>
+                  ) : (
+                    <Text
+                      style={{
+                        fontWeight: "bold",
+                        fontSize: 18,
+                        marginBottom: 10,
+                      }}
+                    >
+                      No appointments in the near future
+                    </Text>
+                  )}
+
                   <Pressable
                     style={[stylesModal.button, stylesModal.buttonClose]}
                     onPress={() => setModalVisible(!modalVisible)}
