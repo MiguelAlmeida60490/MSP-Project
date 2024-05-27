@@ -2,6 +2,8 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import DropDownPicker from "react-native-dropdown-picker";
 import { app } from "../services/firebaseConfig";
+import { getApp } from "firebase/app";
+import { useNavigation } from "@react-navigation/native";
 
 const CreateReceipt = () => {
   const [listUsers, setListUsers] = useState([]);
@@ -11,13 +13,14 @@ const CreateReceipt = () => {
   const [listAppointments, setListAppointments] = useState([]);
   const [openListAppointments, setOpenListAppointments] = useState(false);
   const [listAppointmentValue, setListAppointmentValue] = useState(null);
+  const [appointmentPrice, setAppointmentPrice] = useState(null);
 
   const [listExams, setListExams] = useState([]);
   const [openListExams, setOpenListExams] = useState(false);
   const [listExamsValue, setListExamsValue] = useState(null);
-
-  const [appointmentPrice, setAppointmentPrice] = useState(null);
   const [examPrice, setExamPrice] = useState(null);
+
+  const navigation = useNavigation();
 
   useEffect(() => {
     app
@@ -27,9 +30,9 @@ const CreateReceipt = () => {
         const newUsers = [];
         newUsers.push({ label: "Select user", value: null });
         querySnapshot.forEach((doc) => {
-          const { email, name, role } = doc.data();
+          const { email, name, role, insurance } = doc.data();
           if (doc.data().role === "client") {
-            newUsers.push({ label: name, value: email });
+            newUsers.push({ label: name, value: email, role, insurance });
           }
         });
         setListUsers(newUsers);
@@ -45,15 +48,17 @@ const CreateReceipt = () => {
           const newAppointments = [];
           newAppointments.push({ label: "Select appointment", value: null });
           querySnapshot.forEach((doc) => {
-            const { type, clientEmail, doctorEmail, date, isPaid } = doc.data();
-            if (doc.data().clientEmail === listUserValue) {
+            const { type, clientEmail, doctorEmail, date, isPaid, paidValue } =
+              doc.data();
+            if (doc.data().clientEmail === listUserValue && doc.data().isPaid) {
               newAppointments.push({
-                label: type,
+                label: type + " -> " + date,
                 value: doc.id,
                 clientEmail,
                 doctorEmail,
                 date,
                 isPaid,
+                paidValue,
               });
             }
           });
@@ -71,15 +76,17 @@ const CreateReceipt = () => {
           const newExams = [];
           newExams.push({ label: "Select exam", value: null });
           querySnapshot.forEach((doc) => {
-            const { equipment, client, doctor, date, isPaid } = doc.data();
-            if (doc.data().client === listUserValue) {
+            const { equipment, client, doctor, date, isPaid, paidValue } =
+              doc.data();
+            if (doc.data().client === listUserValue && isPaid) {
               newExams.push({
-                label: equipment,
+                label: equipment + " -> " + date,
                 value: doc.id,
                 client,
                 doctor,
                 date,
                 isPaid,
+                paidValue,
               });
             }
           });
@@ -87,50 +94,6 @@ const CreateReceipt = () => {
         });
     }
   }, [listUserValue]);
-
-  useEffect(() => {
-    if (listAppointmentValue) {
-      app
-        .firestore()
-        .collection("prices")
-        .onSnapshot((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            const { type, price } = doc.data();
-            if (
-              doc.data().type ===
-              listAppointments.find(
-                (item) => item.value === listAppointmentValue
-              ).label
-            ) {
-              setAppointmentPrice(price);
-            }
-          });
-        });
-    } else {
-      setAppointmentPrice(null);
-    }
-  }, [listAppointmentValue]);
-
-  useEffect(() => {
-    if (listExamsValue) {
-      app
-        .firestore()
-        .collection("prices")
-        .onSnapshot((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            const { type, price } = doc.data();
-            if (
-              doc.data().type ===
-              listExams.find((item) => item.value === listExamsValue).label
-            ) {
-              setExamPrice(price);
-            }
-          });
-        });
-    } else {
-      setExamPrice(null);
-    }
-  }, [listExamsValue]);
 
   const handleCreateReceipt = () => {
     if (appointmentPrice) {
@@ -151,31 +114,75 @@ const CreateReceipt = () => {
               exam: listExamsValue,
               examPrice,
               user: listUserValue,
-              insurance: null,
+              insurance: listUsers.find((item) => item.value === listUserValue)
+                .insurance
+                ? listUsers.find((item) => item.value === listUserValue)
+                    .insurance
+                : "N/A",
               total: appointmentPrice + examPrice,
             });
+          alert("Receipt created successfully");
+          navigation.navigate("Home");
         }
       } else {
-        app.firestore().collection("receipts").add({
-          appointment: listAppointmentValue,
-          appointmentPrice,
-          user: listUserValue,
-          insurance: null,
-          total: appointmentPrice,
-        });
+        app
+          .firestore()
+          .collection("receipts")
+          .add({
+            appointment: listAppointmentValue,
+            appointmentPrice,
+            user: listUserValue,
+            insurance: listUsers.find((item) => item.id === listUserValue)
+              .insurance
+              ? listUsers.find((item) => item.id === listUserValue).insurance
+              : "N/A",
+            total: appointmentPrice,
+          });
+        alert("Receipt created successfully");
+        navigation.navigate("Home");
       }
     } else if (examPrice) {
-      app.firestore().collection("receipts").add({
-        exam: listExamsValue,
-        examPrice,
-        user: listUserValue,
-        insurance: null,
-        total: examPrice,
-      });
+      app
+        .firestore()
+        .collection("receipts")
+        .add({
+          exam: listExamsValue,
+          examPrice,
+          user: listUserValue,
+          insurance: listUsers.find((item) => item.id === listUserValue)
+            .insurance
+            ? listUsers.find((item) => item.id === listUserValue).insurance
+            : "N/A",
+          total: examPrice,
+        });
+      alert("Receipt created successfully");
+      navigation.navigate("Home");
     } else {
       alert("Please select an appointment or a medical exam");
     }
   };
+
+  useEffect(() => {
+    if (listAppointmentValue) {
+      const selectedAppointment = listAppointments.find(
+        (item) => item.value === listAppointmentValue
+      );
+      if (selectedAppointment) {
+        setAppointmentPrice(selectedAppointment.paidValue);
+      }
+    }
+  }, [listAppointmentValue]);
+
+  useEffect(() => {
+    if (listExamsValue) {
+      const selectedExam = listExams.find(
+        (item) => item.value === listExamsValue
+      );
+      if (selectedExam) {
+        setExamPrice(selectedExam.paidValue);
+      }
+    }
+  }, [listExamsValue]);
 
   return (
     <View style={styles.container}>
@@ -223,14 +230,14 @@ const CreateReceipt = () => {
               style={styles.dropDown}
             />
           </View>
-          {appointmentPrice ? (
+          {listAppointmentValue ? (
             <Text style={styles.priceText}>
               Appointment Price: {appointmentPrice}€
             </Text>
           ) : (
             <Text style={styles.priceText}>No Price for Appointment</Text>
           )}
-          {examPrice ? (
+          {listAppointmentValue ? (
             <Text style={styles.priceText}>Exam Price: {examPrice}€</Text>
           ) : (
             <Text style={styles.priceText}>No Price for Exam</Text>
