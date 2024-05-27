@@ -65,7 +65,6 @@ const RegisterDoctor = () => {
         placeholder="Type"
         value={type}
         onChangeText={(type) => setType(type)}
-        secureTextEntry={true}
       ></TextInput>
       <TextInput
         style={styles.input}
