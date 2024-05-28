@@ -40,6 +40,7 @@ const Home = () => {
               newAppos.push(date);
             });
             setListDocAppos(newAppos);
+            setModalVisible(true); // Set modalVisible to true once data is fetched
           });
       }
     }
