@@ -30,10 +30,10 @@ const CheckIn = () => {
       .onSnapshot((querySnapshot) => {
         const newAppointments = [];
         querySnapshot.forEach((doc) => {
-          const { type } = doc.data();
+          const { type, date } = doc.data();
           if ((userData.email = doc.data().clientEmail) && !doc.data().checkIn) {
             newAppointments.push({
-              label: type,
+              label: type + ", " + date,
               value: doc.id,
             });
           }
@@ -49,10 +49,10 @@ const CheckIn = () => {
       .onSnapshot((querySnapshot) => {
         const newExams = [];
         querySnapshot.forEach((doc) => {
-          const { equipment } = doc.data();
+          const { equipment, date } = doc.data();
           if ((userData.email = doc.data().client) && !doc.data().checkIn) {
             newExams.push({
-              label: equipment,
+              label: equipment + ", " + date,
               value: doc.id,
             });
           }

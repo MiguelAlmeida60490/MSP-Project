@@ -39,9 +39,12 @@ const MedicalExam = () => {
       .onSnapshot((querySnapshot) => {
         const newDoctors = [];
         querySnapshot.forEach((doc) => {
-          const { email, name, role } = doc.data();
+          const { email, name, role, type } = doc.data();
           if (doc.data().role === "doctor") {
-            newDoctors.push({ label: "Dr. " + name, value: email });
+            newDoctors.push({
+              label: "Dr. " + name + " (" + type + ")",
+              value: email,
+            });
           }
         });
         setListDoctors(newDoctors);
@@ -103,7 +106,7 @@ const MedicalExam = () => {
         setOpen={setOpenDoctors}
         setValue={setDoctorValue}
         setItems={setListDoctors}
-        style={[styles.dropdown, {zIndex: 2}]}
+        style={[styles.dropdown, { zIndex: 2 }]}
         placeholder="Select your preferred doctor"
         textStyle={{ fontSize: 18, fontWeight: "bold" }}
       />
@@ -114,7 +117,7 @@ const MedicalExam = () => {
         setOpen={setOpenEquipments}
         setValue={setEquipmentValue}
         setItems={setListEquipments}
-        style={[styles.dropdown, {zIndex: 1}]}
+        style={[styles.dropdown, { zIndex: 1 }]}
         placeholder="Select the type of exam"
         textStyle={{ fontSize: 18, fontWeight: "bold" }}
       />

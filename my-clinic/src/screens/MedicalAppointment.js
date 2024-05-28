@@ -46,9 +46,12 @@ const MedicalAppointment = () => {
       .onSnapshot((querySnapshot) => {
         const newDoctors = [];
         querySnapshot.forEach((doc) => {
-          const { email, name, role } = doc.data();
+          const { email, name, role, type } = doc.data();
           if (doc.data().role === "doctor") {
-            newDoctors.push({ label: "Dr. " + name, value: email });
+            newDoctors.push({
+              label: "Dr. " + name + " (" + type + ")",
+              value: email,
+            });
           }
         });
         setListDoctors(newDoctors);
@@ -116,25 +119,25 @@ const MedicalAppointment = () => {
         </Modal>
       </View>
       <DropDownPicker
-        open={openDoctors}
-        value={doctorValue}
-        items={listDoctors}
-        setOpen={setOpenDoctors}
-        setValue={setDoctorValue}
-        setItems={setListDoctors}
-        style={[styles.dropdown, {zIndex: 2}]}
-        placeholder="Select your preferred doctor"
-        textStyle={{ fontSize: 18, fontWeight: "bold" }}
-      />
-      <DropDownPicker
         open={openTypes}
         value={typeValue}
         items={listTypes}
         setOpen={setOpenTypes}
         setValue={setTypeValue}
         setItems={setListTypes}
-        style={[styles.dropdown, {zIndex: 1}]}
+        style={[styles.dropdown, { zIndex: 2 }]}
         placeholder="Select type of appointment"
+        textStyle={{ fontSize: 18, fontWeight: "bold" }}
+      />
+      <DropDownPicker
+        open={openDoctors}
+        value={doctorValue}
+        items={listDoctors}
+        setOpen={setOpenDoctors}
+        setValue={setDoctorValue}
+        setItems={setListDoctors}
+        style={[styles.dropdown, { zIndex: 1 }]}
+        placeholder="Select your preferred doctor"
         textStyle={{ fontSize: 18, fontWeight: "bold" }}
       />
       <TextInput
