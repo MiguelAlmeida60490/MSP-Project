@@ -16,6 +16,7 @@ const UserAppointments = () => {
           const newAppos = [];
           querySnapshot.forEach((appoi) => {
             const {
+              link,
               checkIn,
               clientEmail,
               date,
@@ -25,6 +26,7 @@ const UserAppointments = () => {
             } = appoi.data();
             if (appoi.data().clientEmail === userData.email) {
               newAppos.push({
+                link,
                 checkIn,
                 clientEmail,
                 date,
@@ -48,11 +50,7 @@ const UserAppointments = () => {
         renderItem={({ item }) => (
           <>
             <View style={styles.card}>
-              {item.link ? (
-                <Text>Appointment link: {item.link}</Text>
-              ) : (
-                <></>
-              )}
+              {item.link ? <Text>Appointment link: {item.link}</Text> : <></>}
               {item.date ? (
                 <>
                   <Text>Appointment Date: {item.date}</Text>
@@ -74,7 +72,6 @@ const UserAppointments = () => {
               ) : (
                 <></>
               )}
-
             </View>
           </>
         )}
