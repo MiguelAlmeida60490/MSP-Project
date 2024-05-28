@@ -182,4 +182,16 @@ export const styles = StyleSheet.create({
     color: '#fff', // Cor do texto do botão
     fontWeight: 'bold', // Estilo de fonte negrito
   },
+  topLeftText: {
+    margin: 10,
+  },
+  containerHome: {
+    flex: 1,
+    position: 'relative', // Ensure the container is a positioning context
+  },
+  topLeftContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+  },
 });

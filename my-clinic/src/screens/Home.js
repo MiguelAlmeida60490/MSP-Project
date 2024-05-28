@@ -158,7 +158,9 @@ const Home = () => {
       }
       if (userData.role === "doctor") {
         return (
-          <View>
+         <View>
+          <Text style={styles.topLeftText}>My online meeting link: {userData.link}</Text>
+          <View style={styles.containerHome}>
             <Modal
               animationType="slide"
               transparent={true}
@@ -196,6 +198,7 @@ const Home = () => {
             >
               <Text style={styles.buttonText}>My patients</Text>
             </TouchableOpacity>
+          </View>
           </View>
         );
       }
