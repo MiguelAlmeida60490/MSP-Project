@@ -24,6 +24,12 @@ const Profile = () => {
       if (userData.role === "client") {
         return (
           <View style={styles.buttonView}>
+             <TouchableOpacity
+              style={styles.button}
+              onPress={() => navigation.navigate("UserAppointments")}
+            >
+              <Text style={styles.buttonText}>My Appointments</Text>
+            </TouchableOpacity>
             <TouchableOpacity
               style={styles.button}
               onPress={() => navigation.navigate("UserReceipts")}

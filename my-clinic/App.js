@@ -19,6 +19,7 @@ import DoctorPatients from "./src/screens/DoctorPatients";
 import CreateReceipt from "./src/screens/CreateReceipt";
 import PatientInfo from "./src/screens/PatientInfo";
 import Payments from "./src/screens/Payments";
+import UserAppointments from "./src/screens/UserAppointments";
 import { Ionicons } from "@expo/vector-icons";
 import { AuthProvider, useAuth } from "./src/contexts/authContext";
 import UserReceipts from "./src/screens/UserReceipts";
@@ -229,6 +230,18 @@ const TabNavigator = () => {
         name="UserReceipts"
         options={{
           headerTitle: () => <Header name="My Receipts" />,
+          headerStyle: {
+            backgroundColor: "#4c00b0",
+            height: 120,
+          },
+          tabBarButton: () => null,
+        }}
+      />
+       <Tab.Screen
+        component={UserAppointments}
+        name="UserAppointments"
+        options={{
+          headerTitle: () => <Header name="My Appointments" />,
           headerStyle: {
             backgroundColor: "#4c00b0",
             height: 120,
