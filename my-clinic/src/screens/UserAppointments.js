@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Linking } from "react-native";
 import React, { useEffect, useState } from "react";
 import { FlatList } from "react-native-gesture-handler";
 import { app } from "../services/firebaseConfig";
@@ -50,7 +50,14 @@ const UserAppointments = () => {
         renderItem={({ item }) => (
           <>
             <View style={styles.card}>
-              {item.link ? <Text>Appointment link: {item.link}</Text> : <></>}
+              {item.link ? (
+                <Text>
+                  Appointment link: Click{" "}
+                  <Text style={{color: "blue", fontWeight: "bold"}} onPress={() => Linking.openURL(item.link)}>here</Text>
+                </Text>
+              ) : (
+                <></>
+              )}
               {item.date ? (
                 <>
                   <Text>Appointment Date: {item.date}</Text>
