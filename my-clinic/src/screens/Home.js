@@ -1,6 +1,7 @@
 import {
   View,
   Text,
+  Linking,
   TouchableOpacity,
   ActivityIndicator,
   Modal,
@@ -79,6 +80,10 @@ const Home = () => {
       }
     };
   }, [userData]);
+
+  const handlePressToLink = () => {
+    Linking.openURL(userData.link);
+  };
 
   console.log(listClientAppos);
 
@@ -159,7 +164,9 @@ const Home = () => {
       if (userData.role === "doctor") {
         return (
          <View>
-          <Text style={styles.topLeftText}>My online meeting link: {userData.link}</Text>
+          <Text style={styles.topLeftText}>
+          My online meeting link: click <Text style={[styles.link, styles.bold]} onPress={handlePressToLink}>here</Text>
+          </Text>
           <View style={styles.containerHome}>
             <Modal
               animationType="slide"

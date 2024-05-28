@@ -194,4 +194,11 @@ export const styles = StyleSheet.create({
     top: 0,
     left: 0,
   },
+  link: {
+    color: 'blue',
+    textDecorationLine: 'underline',
+  },
+  bold: {
+    fontWeight: 'bold',
+  },
 });
