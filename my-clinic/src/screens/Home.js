@@ -36,8 +36,8 @@ const Home = () => {
           .onSnapshot((querySnapshot) => {
             const newAppos = [];
             querySnapshot.forEach((appo) => {
-              const { date } = appo.data();
-              newAppos.push(date);
+              const { date, type, link } = appo.data();
+              newAppos.push({ date, type, link });
             });
             setListDocAppos(newAppos);
             setModalVisible(true); // Set modalVisible to true once data is fetched
@@ -65,8 +65,8 @@ const Home = () => {
           .onSnapshot((querySnapshot) => {
             const newAppos = [];
             querySnapshot.forEach((appo) => {
-              const { date } = appo.data();
-              newAppos.push(date);
+              const { date, type, link } = appo.data();
+              newAppos.push({ date, type, link });
             });
             setListClientAppos(newAppos);
             setModalVisible(true); // Set modalVisible to true once data is fetched
@@ -113,7 +113,19 @@ const Home = () => {
                         data={listClientAppos}
                         renderItem={({ item }) => (
                           <View style={styles.box}>
-                            <Text style={stylesModal.modalText}>{item}</Text>
+                            <Text style={stylesModal.modalText}>
+                              {item.date}
+                            </Text>
+                            <Text style={stylesModal.modalText}>
+                              {item.type}
+                            </Text>
+                            {item.link ? (
+                              <Text style={stylesModal.modalText}>
+                                Appointment is Online
+                              </Text>
+                            ) : (
+                              <></>
+                            )}
                           </View>
                         )}
                       />
@@ -143,9 +155,7 @@ const Home = () => {
               style={styles.button}
               onPress={() => navigation.navigate("AutoTriage")}
             >
-              <Text style={styles.buttonText}>
-                Auto Triage
-              </Text>
+              <Text style={styles.buttonText}>Auto Triage</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.button}
@@ -172,49 +182,65 @@ const Home = () => {
       }
       if (userData.role === "doctor") {
         return (
-         <View>
-          <Text style={styles.topLeftText}>
-          My online meeting link: click <Text style={[styles.link, styles.bold]} onPress={handlePressToLink}>here</Text>
-          </Text>
-          <View style={styles.containerHome}>
-            <Modal
-              animationType="slide"
-              transparent={true}
-              visible={modalVisible}
-              onRequestClose={() => {
-                Alert.alert("Modal has been closed.");
-                setModalVisible(!modalVisible);
-              }}
-            >
-              <View style={styles.centeredView}>
-                <View style={stylesModal.modalView}>
-                  <Text style={stylesModal.modalText}>Your appointments:</Text>
-                  <FlatList
-                    data={listDocAppos}
-                    renderItem={({ item }) => (
-                      <View style={styles.box}>
-                        <Text style={stylesModal.modalText}>{item}</Text>
-                      </View>
-                    )}
-                  />
-                  <Pressable
-                    style={[stylesModal.button, stylesModal.buttonClose]}
-                    onPress={() => setModalVisible(!modalVisible)}
-                  >
-                    <Text style={styles.textStyle}>Close Notification</Text>
-                  </Pressable>
+          <View>
+            <Text style={styles.topLeftText}>
+              My online meeting link: click{" "}
+              <Text
+                style={[styles.link, styles.bold]}
+                onPress={handlePressToLink}
+              >
+                here
+              </Text>
+            </Text>
+            <View style={styles.containerHome}>
+              <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                  Alert.alert("Modal has been closed.");
+                  setModalVisible(!modalVisible);
+                }}
+              >
+                <View style={styles.centeredView}>
+                  <View style={stylesModal.modalView}>
+                    <Text style={stylesModal.modalText}>
+                      Your appointments:
+                    </Text>
+                    <FlatList
+                      data={listDocAppos}
+                      renderItem={({ item }) => (
+                        <View style={styles.box}>
+                          <Text style={stylesModal.modalText}>{item.date}</Text>
+                          <Text style={stylesModal.modalText}>{item.type}</Text>
+                          {item.link ? (
+                            <Text style={stylesModal.modalText}>
+                              Appointment is Online
+                            </Text>
+                          ) : (
+                            <></>
+                          )}
+                        </View>
+                      )}
+                    />
+                    <Pressable
+                      style={[stylesModal.button, stylesModal.buttonClose]}
+                      onPress={() => setModalVisible(!modalVisible)}
+                    >
+                      <Text style={styles.textStyle}>Close Notification</Text>
+                    </Pressable>
+                  </View>
                 </View>
-              </View>
-            </Modal>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() =>
-                navigation.navigate("DoctorPatients", { userData })
-              }
-            >
-              <Text style={styles.buttonText}>My patients</Text>
-            </TouchableOpacity>
-          </View>
+              </Modal>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() =>
+                  navigation.navigate("DoctorPatients", { userData })
+                }
+              >
+                <Text style={styles.buttonText}>My patients</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         );
       }
@@ -298,7 +324,6 @@ const stylesModal = StyleSheet.create({
     textAlign: "center",
   },
   modalText: {
-    marginBottom: 15,
     textAlign: "center",
   },
 });

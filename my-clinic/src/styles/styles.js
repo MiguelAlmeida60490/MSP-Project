@@ -145,13 +145,12 @@ export const styles = StyleSheet.create({
   box: {
     justifyContent: 'center', // Centraliza verticalmente
     alignItems: 'center', // Centraliza horizontalmente
-    height: 50, // Altura da caixa, ajuste conforme necessário
+    height: 80, // Altura da caixa, ajuste conforme necessário
     width: 300, // Largura da caixa, ajuste conforme necessário
     borderColor: '#000', // Cor da borda, ajuste conforme necessário
     borderWidth: 1, // Largura da borda, ajuste conforme necessário
     borderRadius: 5,
     marginVertical: 5, // Margem vertical entre as caixas
-    flexDirection: "row"
 
   },
   text: {
