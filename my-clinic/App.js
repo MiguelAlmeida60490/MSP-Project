@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { LogBox } from "react-native";
 import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -20,9 +21,12 @@ import CreateReceipt from "./src/screens/CreateReceipt";
 import PatientInfo from "./src/screens/PatientInfo";
 import Payments from "./src/screens/Payments";
 import UserAppointments from "./src/screens/UserAppointments";
+import AutoTriage from "./src/screens/AutoTriage";
 import { Ionicons } from "@expo/vector-icons";
 import { AuthProvider, useAuth } from "./src/contexts/authContext";
 import UserReceipts from "./src/screens/UserReceipts";
+
+LogBox.ignoreAllLogs(true);
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -237,11 +241,23 @@ const TabNavigator = () => {
           tabBarButton: () => null,
         }}
       />
-       <Tab.Screen
+      <Tab.Screen
         component={UserAppointments}
         name="UserAppointments"
         options={{
           headerTitle: () => <Header name="My Appointments" />,
+          headerStyle: {
+            backgroundColor: "#4c00b0",
+            height: 120,
+          },
+          tabBarButton: () => null,
+        }}
+      />
+      <Tab.Screen
+        component={AutoTriage}
+        name="AutoTriage"
+        options={{
+          headerTitle: () => <Header name="MyClinic" />,
           headerStyle: {
             backgroundColor: "#4c00b0",
             height: 120,

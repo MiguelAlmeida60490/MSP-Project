@@ -140,6 +140,14 @@ const Home = () => {
             </Modal>
             <TouchableOpacity
               style={styles.button}
+              onPress={() => navigation.navigate("AutoTriage")}
+            >
+              <Text style={styles.buttonText}>
+                Auto Triage
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.button}
               onPress={() => navigation.navigate("MedicalAppointment")}
             >
               <Text style={styles.buttonText}>
