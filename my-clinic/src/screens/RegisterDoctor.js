@@ -1,9 +1,16 @@
-import { View, Text, Pressable, ActivityIndicator, TextInput } from "react-native";
+import {
+  View,
+  Text,
+  Pressable,
+  ActivityIndicator,
+  TextInput,
+} from "react-native";
 import React, { useState } from "react";
 import { styles } from "../styles/styles";
 import { app } from "../services/firebaseConfig";
 import { signUp } from "../services/auth";
 import { useNavigation } from "@react-navigation/native";
+import DropDownPicker from "react-native-dropdown-picker";
 
 const RegisterDoctor = () => {
   const [email, setEmail] = useState("");
@@ -11,6 +18,22 @@ const RegisterDoctor = () => {
   const [name, setName] = useState("");
   const [type, setType] = useState("");
   const [loading, setLoading] = useState("");
+  const [listTypes, setListTypes] = useState([
+    { label: "General Consultation", value: "General Consultation" },
+    { label: "Ophthalmology", value: "Ophthalmology" },
+    { label: "Cardiology", value: "Cardiology" },
+    { label: "Pediatric", value: "Pediatric" },
+    { label: "Dermatology", value: "Dermatology" },
+    { label: "Gynecology", value: "Gynecology" },
+    { label: "Obstetrics", value: "Obstetrics" },
+    { label: "Neurology", value: "Neurology" },
+    { label: "Nutrition", value: "Nutrition" },
+    { label: "Oncology", value: "Oncology" },
+    { label: "Psychiatry", value: "Psychiatry" },
+    { label: "Rheumatology", value: "Rheumatology" },
+  ]);
+  const [openTypes, setOpenTypes] = useState(false);
+  const [valueTypes, setValueTypes] = useState(null);
 
   const navigation = useNavigation();
 
@@ -41,7 +64,7 @@ const RegisterDoctor = () => {
       name,
       email,
       role,
-      type
+      type: valueTypes,
     });
   };
 
@@ -60,12 +83,6 @@ const RegisterDoctor = () => {
         value={name}
         onChangeText={(name) => setName(name)}
       ></TextInput>
-       <TextInput
-        style={styles.input}
-        placeholder="Type"
-        value={type}
-        onChangeText={(type) => setType(type)}
-      ></TextInput>
       <TextInput
         style={styles.input}
         placeholder="Password"
@@ -73,6 +90,16 @@ const RegisterDoctor = () => {
         onChangeText={(password) => setPassword(password)}
         secureTextEntry={true}
       ></TextInput>
+      <DropDownPicker
+        open={openTypes}
+        value={valueTypes}
+        items={listTypes}
+        setOpen={setOpenTypes}
+        setValue={setValueTypes}
+        setItems={setListTypes}
+        placeholder="Select the doctor's specialty"
+        style={styles.dropdown}
+      />
       {loading ? (
         <ActivityIndicator color="#0000ff" size="large" />
       ) : (
