@@ -151,7 +151,7 @@ export const styles = StyleSheet.create({
     borderWidth: 1, // Largura da borda, ajuste conforme necessário
     borderRadius: 5,
     marginVertical: 5, // Margem vertical entre as caixas
-
+    flexDirection: 'row',
   },
   text: {
     textAlign: 'center', // Centraliza o texto horizontalmente

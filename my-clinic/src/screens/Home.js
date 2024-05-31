@@ -21,6 +21,7 @@ const Home = () => {
 
   const [listDocAppos, setListDocAppos] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
+  const [haveShownNotifications, setHaveShownNotifications] = useState();
 
   const [listClientAppos, setListClientAppos] = useState([]);
 
@@ -40,7 +41,12 @@ const Home = () => {
               newAppos.push({ date, type, link });
             });
             setListDocAppos(newAppos);
-            setModalVisible(true); // Set modalVisible to true once data is fetched
+            if (haveShownNotifications !== true) {
+              setHaveShownNotifications(true);
+              setModalVisible(true);
+            } else {
+              console.log("Have already shown notifications");
+            }
           });
       }
     }
@@ -69,7 +75,12 @@ const Home = () => {
               newAppos.push({ date, type, link });
             });
             setListClientAppos(newAppos);
-            setModalVisible(true); // Set modalVisible to true once data is fetched
+            if (haveShownNotifications !== true) {
+              setHaveShownNotifications(true);
+              setModalVisible(true);
+            } else {
+              console.log("Have already shown notifications");
+            }
           });
       }
     }

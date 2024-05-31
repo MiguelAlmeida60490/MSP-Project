@@ -25,7 +25,7 @@ const Payments = () => {
 
   useEffect(() => {
     const fetchDiscount = async () => {
-      if (userData.insurance) {
+      if (userData && userData.insurance) {
         const insuranceDoc = await app
           .firestore()
           .collection("insurances")
@@ -38,7 +38,7 @@ const Payments = () => {
     };
 
     fetchDiscount();
-  }, [userData.insurance]);
+  }, [userData]);
 
   useEffect(() => {
     app
@@ -219,6 +219,7 @@ const Payments = () => {
                       <Text style={styles.cardText}>{item.type}</Text>
                       <Text>{item.date}</Text>
                       <Text>
+                        {console.log(getPrice(item.type))}
                         Price to pay:{" "}
                         {getPrice(item.type) * (1 - userDiscount * 0.01)}€
                         (Total would be {getPrice(item.type)}

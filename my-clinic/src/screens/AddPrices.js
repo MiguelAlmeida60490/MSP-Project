@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   allPricesText: {
-    fontSize: 26,
+    fontSize: 20,
     fontWeight: "bold",
     marginBottom: 5,
   },
